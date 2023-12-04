@@ -1,0 +1,44 @@
+/* User Details Box */
+.aduser-details-box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* User Details */
+  .aduser-detail {
+    margin-top: 10px;
+  }
+  
+  /* User Tabs */
+  .aduser-tabs {
+    display: flex;
+  }
+  
+  /* User Tab */
+  .aduser-tab {
+    flex: 1;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    border-radius: 4px;
+  }
+  
+  .aduser-tab:hover {
+    background-color: #bdeaf4;
+  }
+  
+  .aduser-tab.active {
+    background-color: #3498db;
+    color: #fff;
+  }
+  
+  /* User Content */
+  .aduser-content {
+    margin-top: 20px;
+  }
+  
+  /* ... Existing styles ... */
+  

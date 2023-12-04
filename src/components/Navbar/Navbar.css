@@ -1,0 +1,218 @@
+/* Add your existing CSS styles here */
+
+/* Navbar styles */
+.login-home {
+    margin-left: -17px;
+   
+    
+  }
+  
+  .login-navbar {
+    display: flex;
+    justify-content: space-between;
+   
+    align-items: center;
+    background-color: var(--black); 
+    color: white;
+    padding: 1rem;
+    margin: 0;
+    border-radius: 10px;
+  }
+  
+  .left-nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-communify {
+    width: 50px; /* Adjust the size as needed */
+    height: auto;
+  }
+  
+  .logo-name {
+    font-size: 1.5rem;
+    margin-left: 20px;
+  }
+  
+  .span-c {
+    color: var(--orange); /* Assuming you have an --orange variable defined */
+  }
+  
+  .middle-nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .community-menu {
+    padding: 0 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    background-color: #007bff;
+  }
+  
+  .home-icon {
+    margin-right: 4px;
+  }
+  
+  .chevron-icon {
+    margin-left: 4px;
+  }
+  
+  .menu-list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--black);
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .menu-item {
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .menu-item:hover {
+    color: var(--orange);
+  }
+  
+  .right-nav {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+  }
+  
+  .user-profile-image {
+    width: 40px; /* Adjust the size as needed */
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 3rem;
+    border: 5px solid black;
+  }
+  
+  /* Modal styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 400px;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+  }
+  
+  .modal-close {
+    cursor: pointer;
+  }
+  
+  .modal-body {
+    margin: 1rem 0;
+  }
+  
+  .form-control {
+    margin-bottom: 1rem;
+  }
+  
+  .form-control label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--gray);
+  }
+  
+  .form-control input {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 8px;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .button {
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background: var(--buttonBg);
+    color: white;
+  }
+  
+  .button.blue {
+    background: #007bff; /* Use your desired blue color */
+  }
+  
+  .button:hover {
+    background: transparent;
+    border: 2px solid var(--orange);
+  }
+
+  .search-bar input{
+
+    height: 30px;
+    width: 400px;
+    border-radius: 6px;
+  }
+
+
+  
+  .user-profile {
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .user-profile-image {
+    width: 40px; /* Adjust as needed */
+    height: 40px; /* Adjust as needed */
+    border-radius: 50%;
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    color: black;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0px;
+  }
+  
+  li {
+    padding: 15px;
+    cursor: pointer;
+    width: 100px;
+  }
+  
+  li:hover {
+    background-color: #074444;
+    color: #fff;
+  }

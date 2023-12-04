@@ -1,0 +1,177 @@
+/* Admin Container */
+.admin-container {
+    display: flex;
+    height: 90vh;
+  
+
+}
+
+/* Admin Sidebar */
+.admin-sidebar {
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    z-index: 1;
+}
+
+/* Admin Sidebar Item */
+.admin-sidebar-item {
+      border-radius: 5px;
+    padding: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+  
+  .admin-sidebar-item:hover {
+    background-color: #555;
+  }
+  
+  /* Admin Logout Item */
+  .admin-logout {
+    margin-top: 20px;
+    background-color: #e74c3c;
+  }
+  
+  /* Admin Content */
+  .admin-content {
+    flex: 1;
+    padding: 20px;
+    background-color: beige;
+  }
+  
+
+  /* ... Existing styles ... */
+
+/* Active Sidebar Item */
+.admin-sidebar-item.active {
+    background-color: #555;
+  }
+  
+  /* Active Logout Item */
+  .admin-logout.active {
+    background-color: #c0392b;
+  }
+  
+  /* ... Existing styles ... */
+
+
+/* Users Table */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 100px;
+  }
+  
+  .users-table th,
+  .users-table td {
+    border: 2px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  /* Block and Delete Buttons */
+  .block-button,
+  .delete-button {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+
+  
+  /* Add this to your existing CSS file or create a new one for UserProfile.css */
+
+.aduser-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  
+}
+
+.reported-post-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  width: 300px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.reported-post-card:hover {
+  transform: scale(1.05);
+}
+
+.reported-post-card h1 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.reported-post-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.reported-post-card h3 {
+  font-size: 14px;
+  color: #555;
+}
+
+/* You can add more styling based on your requirements */
+
+
+/* Add this to your existing CSS file or create a new one for UserProfile.css */
+
+.adcommunities-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.adcommunity-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  width: 200px; /* Adjust the width based on your design */
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.adcommunity-card:hover {
+  transform: scale(1.05);
+}
+
+.adcommunity-card h2 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+/* You can add more styling based on your requirements */
+/* Add this to your existing CSS file or create a new one for AdminPanel.css */
+
+/* Add this to your existing CSS file or create a new one for AdminPanel.css */
+
+.dashboard-box {
+  background-color: #27ae60;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform-origin: center bottom;
+  transition: transform 0.3s ease-in-out;
+}
+
+.dashboard-box:hover {
+  transform: scale(1.05);
+}
