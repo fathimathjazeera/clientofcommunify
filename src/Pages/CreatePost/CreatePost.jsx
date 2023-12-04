@@ -33,7 +33,7 @@ function CreatePost() {
 
       const token = localStorage.getItem("authToken");
       const response = await axios.post(
-        "http://localhost:5001/api/users/createpost",
+        "https://communify-server.mrzera.xyz/api/users/createpost",
         {
           title,
           content,

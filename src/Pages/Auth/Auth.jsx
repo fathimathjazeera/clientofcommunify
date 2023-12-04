@@ -24,7 +24,7 @@ const Auth = () => {
   const handleRegistration = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5001/api/register", {
+      await axios.post("https://communify-server.mrzera.xyz/api/register", {
         username: data.username,
         email: data.email,
         password: data.password,
@@ -38,7 +38,7 @@ const Auth = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5001/api/login', {
+      const response = await axios.post('https://communify-server.mrzera.xyz/api/login', {
         email: data.email,
         password: data.password,
       });

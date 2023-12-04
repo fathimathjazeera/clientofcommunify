@@ -67,7 +67,7 @@ function Home() {
         action: "upvote",
       };
       await axios.post(
-        `http://localhost:5001/api/users/upvote/${id}`,
+        `https://communify-server.mrzera.xyz/api/users/upvote/${id}`,
         postData,
         {
           headers: {
@@ -89,7 +89,7 @@ function Home() {
         action: "downvote",
       };
       await axios.post(
-        `http://localhost:5001/api/users/downvote/${id}`,
+        `https://communify-server.mrzera.xyz/api/users/downvote/${id}`,
         postData,
         {
           headers: {
@@ -228,7 +228,7 @@ function Home() {
             <input
               type="text"
               id="postLink"
-              value={`http://localhost:5174/${postId}`}
+              value={`https://communify-server.mrzera.xyz/${postId}`}
               readOnly
             />
             <div className="button-containerr">

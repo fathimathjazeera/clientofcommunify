@@ -40,7 +40,7 @@ const handleEditInputChange = (e) => {
 
 const handleProfileEditSubmit = async() => {
   const token= localStorage.getItem('authToken')
-await axios.put('http://localhost:5001/api/users/editprofile',{
+await axios.put('https://communify-server.mrzera.xyz/api/users/editprofile',{
 user
 },{
 headers:{
@@ -63,7 +63,7 @@ const navigation=useNavigate()
   const deleteProfile=async()=>{
     try{
       const token=localStorage.getItem('authToken')
-   const response=   await axios.delete('http://localhost:5001/api/users/deleteprofile',{
+   const response=   await axios.delete('https://communify-server.mrzera.xyz/api/users/deleteprofile',{
        headers:{
          Authorization:`Bearer ${token}`
        }
@@ -82,7 +82,7 @@ const navigation=useNavigate()
       const token = localStorage.getItem("authToken");
 
       const response = await axios.get(
-        "http://localhost:5001/api/users/viewuserpost",
+        "https://communify-server.mrzera.xyz/api/users/viewuserpost",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -104,7 +104,7 @@ const navigation=useNavigate()
   const viewUserProfile = async () => {
     const token = localStorage.getItem("authToken");
     const response = await axios.get(
-      "http://localhost:5001/api/users/userprofile",
+      "https://communify-server.mrzera.xyz/api/users/userprofile",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -124,7 +124,7 @@ const navigation=useNavigate()
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.get(
-        "http://localhost:5001/api/users/viewusercomment",
+        "https://communify-server.mrzera.xyz/api/users/viewusercomment",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -148,7 +148,7 @@ const navigation=useNavigate()
   const userUpvoted = async () => {
     const token = localStorage.getItem('authToken');
     try {
-      const response = await axios.get('http://localhost:5001/api/users/userupvote', {
+      const response = await axios.get('https://communify-server.mrzera.xyz/api/users/userupvote', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -167,7 +167,7 @@ const navigation=useNavigate()
   const userDownvoted = async () => {
     const token = localStorage.getItem('authToken');
     try {
-      const response = await axios.get('http://localhost:5001/api/users/userdownvote', {
+      const response = await axios.get('https://communify-server.mrzera.xyz/api/users/userdownvote', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -188,7 +188,7 @@ const navigation=useNavigate()
     try{
     const token=localStorage.getItem('authToken')
     
-    await axios.delete(`http://localhost:5001/api/users/deletepost/${id}`,{
+    await axios.delete(`https://communify-server.mrzera.xyz/api/users/deletepost/${id}`,{
       headers:{
         Authorization:`Bearer ${token}`
       }

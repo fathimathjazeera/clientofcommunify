@@ -42,7 +42,7 @@ localStorage.removeItem('adminAuthToken');
     try {
       const token = localStorage.getItem('authToken');
       const response = await axios.post(
-        'http://localhost:5001/api/users/createcommunity',
+        'https://communify-server.mrzera.xyz/api/users/createcommunity',
         { community: community },
         {
           headers: {
