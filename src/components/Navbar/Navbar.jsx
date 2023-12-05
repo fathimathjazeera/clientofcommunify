@@ -97,8 +97,8 @@ localStorage.removeItem('adminAuthToken');
                 {isLoggedIn ?
                 <>
                 <li onClick={()=>{navigation('/Profile')}}>{username}</li>
-                <li onClick={()=>{navigation('/')}}> Logout </li>
-               </> : <li onClick={ isLoggedIn ? logout : ()=>navigation('/auth') }> Login/Signup </li>
+                <li onClick={logout}> Logout </li>
+               </> : <li onClick={ ()=>navigation('/auth') }> Login/Signup </li>
               }
               
               </ul>
