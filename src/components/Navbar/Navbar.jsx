@@ -11,7 +11,7 @@ const Navbar = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const navigation = useNavigate()
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const {isLoggedIn} = useContext(MyContext)
+  const {isLoggedIn,username} = useContext(MyContext)
 
 
   const toggleDropdown = () => {
@@ -96,9 +96,9 @@ localStorage.removeItem('adminAuthToken');
               <ul>
                 {isLoggedIn ?
                 <>
-                <li onClick={()=>{navigation('/Profile')}}>Profile</li>
-                <li onClick={ isLoggedIn ? logout : ()=>navigation('/') }> {isLoggedIn ? "Logout" : "Login/sign"} </li>
-               </> : <li onClick={ isLoggedIn ? logout : ()=>navigation('/') }> {isLoggedIn ? "Logout" : "Login/sign"} </li>
+                <li onClick={()=>{navigation('/Profile')}}>{username}</li>
+                <li onClick={()=>{navigation('/')}}> Logout </li>
+               </> : <li onClick={ isLoggedIn ? logout : ()=>navigation('/auth') }> Login/Signup </li>
               }
               
               </ul>

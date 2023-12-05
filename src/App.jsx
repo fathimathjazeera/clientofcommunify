@@ -13,7 +13,7 @@ import UserProfile from "./Pages/Admin/UserProfile";
 function App() {
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 const [adminLogin, setAdminLogin] = useState(false)
-  
+  const [username,setUsername]=useState()
 
 
 
@@ -33,7 +33,7 @@ const [adminLogin, setAdminLogin] = useState(false)
     <div className="App">
       <div className="blur" style={{ top: "-18%", right: "0" }}></div>
       <div className="blur" style={{ top: "36%", left: "-8rem" }}></div>
-<MyContext.Provider value={{isLoggedIn,setIsLoggedIn}}>
+<MyContext.Provider value={{isLoggedIn,setIsLoggedIn,username,setUsername}}>
 
       <Routes>
         

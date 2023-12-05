@@ -18,19 +18,18 @@ function CreatePost() {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const title = event.target.title.value;
-    const content = event.target.content.value;
+    const content = activeTab === 2 ? event.target.content.value : null;
     const subredditName = event.target.subredditName.value;
-
+  
     try {
       let url;
       if (image) {
         url = await UploadPosts(image);
       }
-
+  
       const token = localStorage.getItem("authToken");
       const response = await axios.post(
         "https://communify-server.mrzera.xyz/api/users/createpost",
@@ -46,13 +45,14 @@ function CreatePost() {
           },
         }
       );
-
+  
       event.target.reset();
-      nav("/Home");
+      nav("/");
     } catch (err) {
       console.log(err.message);
     }
   };
+  
   return (
     <>
       <Navbar />
