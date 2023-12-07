@@ -143,12 +143,7 @@ function Home() {
 
 
 
-useEffect(async() => {
-  if (activeTab === "popular") {
-    await viewPopular();
-  }
 
-}, [])
 
 
 
