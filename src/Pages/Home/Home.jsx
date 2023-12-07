@@ -118,7 +118,7 @@ function Home() {
           },
         }
       );
-      singlePost();
+      fetchPosts()
     } catch (err) {
       console.log(err.message, "error");
     }
@@ -140,6 +140,9 @@ function Home() {
           },
         }
       );
+
+fetchPosts()
+
     } catch (err) {
       console.log(err.message, "error");
     }

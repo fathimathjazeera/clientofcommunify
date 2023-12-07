@@ -18,10 +18,10 @@ function SinglePost() {
   const [replyData, setReplyData] = useState([]);
   const navigation = useNavigate();
 
-  console.log(replyData, "ggggg");
+
+
 
   const { id } = useParams();
-
   const { isLoggedIn } = useContext(MyContext);
 
   const singlePost = async () => {
