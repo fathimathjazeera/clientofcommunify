@@ -389,13 +389,13 @@ function SinglePost() {
           </div>
           <div className="favorite-communities">Favorite Communities:</div>
           <ul className="community-list">
-            <li className="community-list-item">
-              {data.postedBy.joined_communities[0]}
-            </li>
-            <li className="community-list-item">
-              {data.postedBy.joined_communities[1]}
-            </li>
-          </ul>
+  {data?.postedBy?.joined_communities.slice(0, 2).map((community, index) => (
+    <li key={index} className="community-list-item">
+      {community.name}
+    </li>
+  ))}
+</ul>
+
           <button className="create-post-button" onClick={isLoggedIn? ()=>{navigation('/Create')} : ()=>{navigation('/auth')}}>Create Post</button>
         </div>
       )}
