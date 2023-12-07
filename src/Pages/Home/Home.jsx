@@ -143,6 +143,12 @@ function Home() {
 
 
 
+useEffect(async() => {
+  if (activeTab === "popular") {
+    await viewPopular();
+  }
+
+}, [])
 
 
 
@@ -575,7 +581,7 @@ function Home() {
             <input
               type="text"
               id="postLink"
-              value={`https://communify-server.mrzera.xyz/${postId}`}
+              value={`https://communify.mrzera.xyz/${postId}`}
               readOnly
             />
             <div className="button-containerr">
