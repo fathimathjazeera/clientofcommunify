@@ -52,7 +52,12 @@ function Home() {
       );
       const { status, message, data } = response.data;
       if (status === "success") {
-        setPopularData(data);
+
+       const filter= data.filter((post)=>{
+          return userId != post.postedBy
+        })
+
+        setPopularData(filter);
       }
     } catch (err) {
       console.log(err.message);

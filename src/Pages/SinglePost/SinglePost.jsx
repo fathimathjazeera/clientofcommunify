@@ -366,7 +366,7 @@ function SinglePost() {
             <input
               type="text"
               id="postLink"
-              value={`https://communify-server.mrzera.xyz/${postId}`}
+              value={`https://communify.mrzera.xyz/${postId}`}
               readOnly
             />
             <div className="button-containerr">
@@ -423,7 +423,7 @@ function SinglePost() {
               {commentView.map((c) => (
                 <div className="comment-item" key={c.commentId}>
                   <span className="comment-user">{c.userId?.username}:</span>
-                  <span className="comment-content">{c.text} </span>
+                 
 
                   {clickEdit.edit && c._id == clickEdit.id ? (
                     <>
