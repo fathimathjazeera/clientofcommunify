@@ -24,6 +24,7 @@ const Navbar = () => {
     const admin=localStorage.getItem('adminAuthToken')
 if(user){
   localStorage.removeItem('authToken');
+  location.reload()
   navigation('/')
 }else if(admin)
 localStorage.removeItem('adminAuthToken');

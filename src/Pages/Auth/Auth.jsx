@@ -47,16 +47,19 @@ const Auth = () => {
 
       if (adminemail) {
         localStorage.setItem('adminAuthToken', token);
-     
+        navigation('/Admin')
       } else {
         localStorage.setItem('authToken', token);
          console.log("logged seccess")
-         navigation('/Home')
+         navigation('/')
+         location.reload()
       }
     } catch (error) {
       console.error('Login failed', error);
     }
   };
+
+
 
   const resetForm = () => {
     setData(initialState);
