@@ -169,6 +169,14 @@ function Home() {
 
   }, []);
 
+useEffect(() => {
+  
+if(activeTab == "popular"){
+  viewPopular()
+}
+
+
+}, [])
 
 
   return (

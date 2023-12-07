@@ -89,7 +89,6 @@ function SinglePost() {
     e.preventDefault();
     const token = localStorage.getItem("authToken");
     const comment = e.target.newcomment.value;
-    console.log(comment, "edited");
     try {
       const response = await axios.put(
         `https://communify-server.mrzera.xyz/api/users/editcomment/${id}`,
@@ -106,7 +105,7 @@ function SinglePost() {
         setClickEdit(false);
         console.log("edited comment");
         viewComment();
-        e.target.reset();
+        
       } else {
         console.log("edit failed");
       }
@@ -283,6 +282,11 @@ function SinglePost() {
     viewCommentReply();
   }, []);
 
+
+
+
+
+
   return (
     <div>
       <Navbar />
@@ -432,6 +436,7 @@ function SinglePost() {
                           type="text"
                           id="newcomment"
                           style={{ marginLeft: "20px" }}
+                          value={clickEdit.edit}
                         />
                         <button type="submit">save</button>
                       </form>
@@ -518,7 +523,7 @@ function SinglePost() {
             </div>
           </>
         ) : (
-          <p>Add comment</p>
+     <button onClick={()=>{alert('please login')}}>Add Comment</button>
         )}
       </div>
       {/* // end comment section */}

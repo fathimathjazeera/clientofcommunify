@@ -81,7 +81,7 @@ function Community() {
         {community && (
           <>
             <div className="com-header">
-              <h1 className="com-community-name">{community.name}</h1>
+              <h1 className="com-community-name">r/ {community.name}</h1>
               <button className="com-create-post-button">Create Post</button>
               <button className="com-join-button" onClick={() => { joinCommunity(community._id) }}>
 
@@ -96,10 +96,10 @@ function Community() {
                   <h2 className="com-side-community-name">Community Info</h2>
                 </div>
                 <div className="com-side-body">
-                  <p>Name: {community.name}</p>
+                  <p>Name: <strong>{community.name}</strong> </p>
                   <p>Members: {community.subscribers?.length}</p>
 
-                  <p>Posts: 10</p>
+                  <p>Posts: {communityPost?.length}</p>
 
                 </div>
               </div>
