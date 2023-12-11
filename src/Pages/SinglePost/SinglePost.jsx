@@ -415,7 +415,6 @@ function SinglePost() {
                 <input
                   type="text"
                   placeholder="Add a comment..."
-                  value={comment}
                   onChange={handleCommentChange}
                 />
                 <button className="button" type="Submit">
