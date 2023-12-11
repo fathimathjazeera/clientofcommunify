@@ -168,6 +168,15 @@ const ReportedPostsTab = () => {
 
  
 
+  
+
+
+function AdminPanel() {
+  const [activeTab, setActiveTab] = useState('Dashboard');
+  const navigation = useNavigate()
+
+  
+
   const handleTabClick = (tab) => {
     if (tab === 'Logout') {
       // Perform logout logic here (e.g., clearing authentication token)
@@ -179,18 +188,6 @@ const ReportedPostsTab = () => {
       setActiveTab(tab);
     }
   };
-  
-
-
-function AdminPanel() {
-  const [activeTab, setActiveTab] = useState('Dashboard');
-  const navigation = useNavigate()
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-    navigation('/Home')
-  };
-
   const renderActiveTab = () => {
     switch (activeTab) {
       case 'Dashboard':
