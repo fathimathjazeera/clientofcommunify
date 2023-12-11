@@ -248,7 +248,7 @@ const navigation=useNavigate()
                   return (
                     <>
                       <h1>{item.title}</h1>
-                      <img  src={item.image} />
+                      <img  src={item.image} width={200} height={200}/>
                       <h1>{item.content}</h1>
                       <button style={{zIndex:"1"}} onClick={()=>{deletePost(item._id)}}>delete</button>
                       <button style={{zIndex:"1"}} >edit</button>
