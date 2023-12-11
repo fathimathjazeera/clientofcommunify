@@ -165,25 +165,22 @@ const ReportedPostsTab = () => {
   );
   };
 
-const LogoutTab = () => {
-  const logout = () => {
-    localStorage.removeItem('adminAuthToken');
-    alert('Logout?');
-    // Assuming you have a navigation function
-    // nav('/login');
+
+ 
+
+  const handleTabClick = (tab) => {
+    if (tab === 'Logout') {
+      // Perform logout logic here (e.g., clearing authentication token)
+      localStorage.removeItem('adminAuthToken');
+      alert('Logout successful');
+      // Navigate to the login page, assuming you have a navigation function
+      navigation('/login');
+    } else {
+      setActiveTab(tab);
+    }
   };
+  
 
-  useEffect(() => {
-    logout();
-  }, []);
-
-  return (
-    <div>
-      <h2>Logout Content</h2>
-      <p>Some dummy data for the Logout tab...</p>
-    </div>
-  );
-};
 
 function AdminPanel() {
   const [activeTab, setActiveTab] = useState('Dashboard');
@@ -204,8 +201,6 @@ function AdminPanel() {
         return <CommunitiesTab />;
       case 'ReportedPosts':
         return <ReportedPostsTab />;
-      case 'Logout':
-        return <LogoutTab />;
       default:
         return null;
     }
