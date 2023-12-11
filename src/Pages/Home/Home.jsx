@@ -23,7 +23,7 @@ function Home() {
   const fetchPosts = async () => {
     try {
       const response = await axios.get(
-        "https://communify-server.mrzera.xyz/api/viewposts"
+        "https://communify-server.mrzera.in/api/viewposts"
       );
       const filteredPost = response.data.data.filter((post) => {
 
@@ -43,7 +43,7 @@ function Home() {
     const token = localStorage.getItem("authToken");
     try {
       const response = await axios.get(
-        "https://communify-server.mrzera.xyz/api/users/viewpopular",
+        "https://communify-server.mrzera.in/api/users/viewpopular",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -110,7 +110,7 @@ function Home() {
         action: "upvote",
       };
       await axios.post(
-        `https://communify-server.mrzera.xyz/api/users/upvote/${id}`,
+        `https://communify-server.mrzera.in/api/users/upvote/${id}`,
         postData,
         {
           headers: {
@@ -132,7 +132,7 @@ function Home() {
         action: "downvote",
       };
       await axios.post(
-        `https://communify-server.mrzera.xyz/api/users/downvote/${id}`,
+        `https://communify-server.mrzera.in/api/users/downvote/${id}`,
         postData,
         {
           headers: {
