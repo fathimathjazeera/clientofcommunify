@@ -183,7 +183,7 @@ function AdminPanel() {
       localStorage.removeItem('adminAuthToken');
       alert('Logout successful');
       // Navigate to the login page, assuming you have a navigation function
-      navigation('/login');
+      navigation('/auth');
     } else {
       setActiveTab(tab);
     }
