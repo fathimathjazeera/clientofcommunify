@@ -24,7 +24,7 @@ const navigation = useNavigate()
       try {
         const token = localStorage.getItem("adminAuthToken");
         const response = await axios.get(
-          "https://communify-server.mrzera.xyz/api/admin/allusers",
+          "https://communify-server.mrzera.in/api/admin/allusers",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ const navigation = useNavigate()
   const blockUser = async (id, isBlocked) => {
     const token = localStorage.getItem('adminAuthToken');
     const response = await axios.put(
-      `https://communify-server.mrzera.xyz/api/admin/blockuser/${id}`,
+      `https://communify-server.mrzera.in/api/admin/blockuser/${id}`,
       { isBlocked: !isBlocked }, 
       {
         headers: {
@@ -105,7 +105,7 @@ const CommunitiesTab = () => {
     const viewCommunities = async () => {
       try {
         const token = localStorage.getItem('adminAuthToken');
-        const response = await axios.get('https://communify-server.mrzera.xyz/api/admin/viewcommunities', {
+        const response = await axios.get('https://communify-server.mrzera.in/api/admin/viewcommunities', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -136,7 +136,7 @@ const ReportedPostsTab = () => {
   useEffect(() => {
     const viewReportedPost = async () => {
       try {
-        const response = await axios.get('https://communify-server.mrzera.xyz/api/admin/reportedpost');
+        const response = await axios.get('https://communify-server.mrzera.in/api/admin/reportedpost');
         const { status, message, data } = response.data;
 
         if (status === "success") {
