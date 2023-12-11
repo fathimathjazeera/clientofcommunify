@@ -11,7 +11,7 @@ const UserProfileDetails = () => {
     try {
       const token = localStorage.getItem("adminAuthToken");
       const response = await axios.get(
-        `https://communify-server.mrzera.xyz/api/specificuser/${id}`,
+        `https://communify-server.mrzera.in/api/specificuser/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -92,7 +92,7 @@ function UserProfile() {
     try {
       const token = localStorage.getItem("adminAuthToken");
       const response = await axios.get(
-        `https://communify-server.mrzera.xyz/api/admin/viewuserpost/${id}`,
+        `https://communify-server.mrzera.in/api/admin/viewuserpost/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -113,7 +113,7 @@ function UserProfile() {
 
   const renderComments = async() => {
     const token=localStorage.getItem('adminAuthToken')
-const response=await axios.get(`https://communify-server.mrzera.xyz/api/admin/viewusercomment/${id}`,
+const response=await axios.get(`https://communify-server.mrzera.in/api/admin/viewusercomment/${id}`,
 {
     headers:{
         Authorization:`Bearer ${token}`
