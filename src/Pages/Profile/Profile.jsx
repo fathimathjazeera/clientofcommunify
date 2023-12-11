@@ -82,7 +82,7 @@ const navigation=useNavigate()
       const token = localStorage.getItem("authToken");
 
       const response = await axios.get(
-        "https://communify-server.mrzera.xyz/api/users/viewuserpost",
+        "https://communify-server.mrzera.in/api/users/viewuserpost",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -104,7 +104,7 @@ const navigation=useNavigate()
   const viewUserProfile = async () => {
     const token = localStorage.getItem("authToken");
     const response = await axios.get(
-      "https://communify-server.mrzera.xyz/api/users/userprofile",
+      "https://communify-server.mrzera.in/api/users/userprofile",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -124,7 +124,7 @@ const navigation=useNavigate()
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.get(
-        "https://communify-server.mrzera.xyz/api/users/viewusercomment",
+        "https://communify-server.mrzera.in/api/users/viewusercomment",
         {
           headers: {
             Authorization: `Bearer ${token}`,
