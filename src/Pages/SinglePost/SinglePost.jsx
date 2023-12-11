@@ -49,7 +49,7 @@ function SinglePost() {
         action: "upvote",
       };
       await axios.post(
-        `https://communify-server.mrzera.xyz/api/users/upvote/${id}`,
+        `https://communify-server.mrzera.in/api/users/upvote/${id}`,
         postData,
         {
           headers: {
@@ -71,7 +71,7 @@ function SinglePost() {
         action: "downvote",
       };
       await axios.post(
-        `https://communify-server.mrzera.xyz/api/users/downvote/${id}`,
+        `https://communify-server.mrzera.in/api/users/downvote/${id}`,
         postData,
         {
           headers: {
@@ -91,7 +91,7 @@ function SinglePost() {
     const comment = e.target.newcomment.value;
     try {
       const response = await axios.put(
-        `https://communify-server.mrzera.xyz/api/users/editcomment/${id}`,
+        `https://communify-server.mrzera.in/api/users/editcomment/${id}`,
         { text: comment },
         {
           headers: {
@@ -119,7 +119,7 @@ function SinglePost() {
     try {
       const reply = e.target.replycomment.value;
       const response = await axios.put(
-        `https://communify-server.mrzera.xyz/api/users/replycomment/${id}`,
+        `https://communify-server.mrzera.in/api/users/replycomment/${id}`,
         { reply: reply },
         {
           headers: {
@@ -140,7 +140,7 @@ function SinglePost() {
   const viewCommentReply = async () => {
     try {
       const response = await axios.get(
-        `https://communify-server.mrzera.xyz/api/users/viewreply/${id}`
+        `https://communify-server.mrzera.in/api/users/viewreply/${id}`
       );
       const { status, message, data } = response.data;
 
@@ -191,7 +191,7 @@ function SinglePost() {
   const viewComment = async () => {
     try {
       const response = await axios.get(
-        `https://communify-server.mrzera.xyz/api/users/viewcomment/${id}`
+        `https://communify-server.mrzera.in/api/users/viewcomment/${id}`
       );
       const { status, message, data } = response.data;
 
@@ -217,7 +217,7 @@ function SinglePost() {
       const token = localStorage.getItem("authToken");
 
       const response = await axios.post(
-        `https://communify-server.mrzera.xyz/api/users/postcomment/${id}`,
+        `https://communify-server.mrzera.in/api/users/postcomment/${id}`,
         { text: comment },
         {
           headers: {
@@ -243,7 +243,7 @@ function SinglePost() {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.delete(
-        `https://communify-server.mrzera.xyz/api/users/deletecomment/${id}`,
+        `https://communify-server.mrzera.in/api/users/deletecomment/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
