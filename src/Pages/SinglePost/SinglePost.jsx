@@ -27,7 +27,7 @@ function SinglePost() {
   const singlePost = async () => {
     try {
       const response = await axios.get(
-        `https://communify-server.mrzera.xyz/in/users/singlepost/${id}`
+        `https://communify-server.mrzera.in/api/users/singlepost/${id}`
       );
       const { status, message, data } = response.data;
       if (status === "success") {
