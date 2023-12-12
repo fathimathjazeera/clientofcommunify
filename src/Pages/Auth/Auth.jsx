@@ -3,66 +3,79 @@ import axios from 'axios';
 import main from '../../Images/main.png';
 import './Auth.css';
 import { useNavigate } from 'react-router-dom';
+import {Formik,Form,Field} from 'formik'
+import * as Yup from 'yup'; // Import Yup for validation
 
 const Auth = () => {
   const navigation = useNavigate()
  
-  const initialState = {
-    username: '',
-    email: '',
-    password: '',
-  };
+
+const initialValues={
+  username:"",
+  email:"",
+  password:"",
+
+}
+const validationSchema = Yup.object().shape({
+  username: Yup.string(),
+  email: Yup.string().email('Invalid email address').required('Required'),
+  password: Yup.string().required('Required'),
+});
 
   const [isSignUp, setIsSignUp] = useState(true);
-  const [data, setData] = useState(initialState);
+  const [data, setData] = useState(initialValues);
   const [confirmPass, setConfirmPass] = useState(true);
+ 
 
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
 
-  const handleRegistration = async (e) => {
-    e.preventDefault();
+  const handleRegistration = async (values, { setSubmitting }) => {
     try {
-      await axios.post("https://communify-server.mrzera.in/api/register", {
-        username: data.username,
-        email: data.email,
-        password: data.password,
+      await axios.post('https://communify-server.mrzera.in/api/register', {
+        username: values.username,
+        email: values.email,
+        password: values.password,
       });
       alert('Registration success');
+      navigation('/'); // Redirect to home or wherever you want
     } catch (err) {
       console.error('Registration failed', err);
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (values, { setSubmitting }) => {
     try {
-      const response = await axios.post('https://communify-server.mrzera.in/api/login', {
-        email: data.email,
-        password: data.password,
-      });
+      const response = await axios.post(
+        'https://communify-server.mrzera.in/api/login',
+        {
+          email: values.email,
+          password: values.password,
+        }
+      );
 
       const { adminemail, token } = response.data;
 
       if (adminemail) {
         localStorage.setItem('adminAuthToken', token);
-        navigation('/Admin')
+        navigation('/Admin');
       } else {
         localStorage.setItem('authToken', token);
-         console.log("logged seccess")
-         navigation('/')
-         location.reload()
+        console.log('Login success');
+        navigation('/');
+        location.reload();
       }
     } catch (error) {
       console.error('Login failed', error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
 
 
   const resetForm = () => {
-    setData(initialState);
+    setData(initialValues);
     setConfirmPass(true);
   };
 
@@ -77,83 +90,85 @@ const Auth = () => {
       </div>
 
       <div className="a-right">
-        <form className="infoForm authForm" onSubmit={isSignUp ? handleRegistration : handleLogin}>
-          <h3>{isSignUp ? 'Register' : 'Login'}</h3>
 
-          {isSignUp && (
-            <div>
-              <input
-                required
-                type="text"
-                placeholder="Username"
-                className="infoInput"
-                name="username"
-                onChange={handleChange}
-                value={data.username}
-              />
-            </div>
-          )}
+      <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={(values, { setSubmitting }) => {
+            if (isSignUp) {
+              handleRegistration(values, { setSubmitting });
+            } else {
+              handleLogin(values, { setSubmitting });
+            }
+          }}
+        >
+  {({errors,isSubmitting})=>(
+ <Form className="infoForm authForm" >
+ <h3>{isSignUp ? 'Register' : 'Login'}</h3>
 
-          <div>
-            <input
-              required
-              type="email"
-              placeholder="Email"
-              className="infoInput"
-              name="email"
-              onChange={handleChange}
-              value={data.email}
-            />
-          </div>
+ {isSignUp && (
+   <div>
+   <Field type="text"  name="username" className="infoInput"></Field>
+<br />
+{errors.username && <small>{errors.username}</small> }
 
-          <div>
-            <input
-              required
-              type="password"
-              className="infoInput"
-              placeholder="Password"
-              name="password"
-              onChange={handleChange}
-              value={data.password}
-            />
-          </div>
 
-          <span
-            style={{
-              color: 'red',
-              fontSize: '12px',
-              alignSelf: 'flex-end',
-              marginRight: '5px',
-              display: confirmPass ? 'none' : 'block',
-            }}
-          >
-            *Confirm password is not the same
-          </span>
+   </div>
+ )}
 
-          <div>
-            <span
-              style={{
-                fontSize: '12px',
-                cursor: 'pointer',
-                textDecoration: 'underline',
-              }}
-              onClick={() => {
-                resetForm();
-                setIsSignUp((prev) => !prev);
-              }}
-            >
-              {isSignUp ? 'Already have an account Login' : "Don't have an account Sign up"}
-            </span>
-            <button className="button infoButton" type="submit">
-             
+ <div>
+ <Field type="text"  name="email" className="infoInput"></Field>
+   <br />
+   {errors.email && <small>{errors.email}</small> }
 
-              {isSignUp ? 'Signup' : 'Log in'}
-            </button>
-          </div>
-        </form>
+ </div>
+
+ <div>
+ <Field type="password"  name="password" className="infoInput"></Field>
+   <br />
+   {errors.password && <small>{errors.password}</small> }
+ </div>
+
+ {/* <span
+   style={{
+     color: 'red',
+     fontSize: '12px',
+     alignSelf: 'flex-end',
+     marginRight: '5px',
+  
+   }}
+ >
+   *Confirm password is not the same
+ </span> */}
+
+ <div>
+   <span
+     style={{
+       fontSize: '12px',
+       cursor: 'pointer',
+       textDecoration: 'underline',
+     }}
+     onClick={() => {
+       resetForm();
+       setIsSignUp((prev) => !prev);
+     }}
+   >
+     {isSignUp ? 'Already have an account Login' : "Don't have an account Sign up"}
+   </span>
+   <button className="button infoButton" type="submit" disabled={isSubmitting}>
+    
+
+     {isSignUp ? 'Signup' : 'Log in'}
+   </button>
+ </div>
+</Form>
+  )}
+ 
+       
+        </Formik>
       </div>
     </div>
   );
 };
 
-export default Auth;
+export default Auth

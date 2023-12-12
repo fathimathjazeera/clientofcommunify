@@ -1,6 +1,6 @@
 import "./App.css";
 import Auth from "./Pages/Auth/Auth";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate} from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import SinglePost from "./Pages/SinglePost/SinglePost";
 import CreatePost from './Pages/CreatePost/CreatePost'
@@ -14,7 +14,6 @@ function App() {
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 const [adminLogin, setAdminLogin] = useState(false)
   const [username,setUsername]=useState()
-
 
 
   useEffect(() => {
@@ -36,8 +35,10 @@ const [adminLogin, setAdminLogin] = useState(false)
 <MyContext.Provider value={{isLoggedIn,setIsLoggedIn,username,setUsername}}>
 
       <Routes>
-        
-        <Route path="/auth" element={<Auth />}></Route>
+      <Route
+  path="/auth"
+  element={isLoggedIn ? <Navigate to="/" /> : <Auth />}
+/>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/:id" element={<SinglePost/>}></Route>
         <Route path="/Create" element={<CreatePost/>}></Route>
