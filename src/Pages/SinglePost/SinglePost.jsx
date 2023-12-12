@@ -18,7 +18,7 @@ function SinglePost() {
   const [replyData, setReplyData] = useState([]);
   const navigation = useNavigate();
 
-
+console.log(replyData,'hhhh');
 
 
   const { id } = useParams();
@@ -40,6 +40,31 @@ function SinglePost() {
       console.log(err.message);
     }
   };
+
+const reportPost=async()=>{
+  try{
+
+  
+  const token = localStorage.getItem('authToken')
+  await axios.put(`https://communify-server.mrzera.in/api/users/reportpost/${id}`,{
+    
+  },{
+    headers:{
+      Authorization:`Bearer ${token}`
+    }
+  })
+}catch(err){
+  console.log(err.message);
+}
+}
+
+
+
+
+
+
+
+
 
   const upvote = async (id) => {
     const token = localStorage.getItem("authToken");
@@ -239,6 +264,14 @@ function SinglePost() {
       console.log(err.message, "error while commenting");
     }
   };
+
+
+
+
+
+
+
+
   const deleteComment = async (id) => {
     try {
       const token = localStorage.getItem("authToken");
@@ -358,7 +391,7 @@ function SinglePost() {
             >
               Share
             </button>
-            <button className="button report">Report</button>
+            <button className="button report" onClick={reportPost}>Report</button>
           </div>
         </div>
       )}
@@ -370,7 +403,7 @@ function SinglePost() {
             <input
               type="text"
               id="postLink"
-              value={`https://communify.mrzera.xyz/${postId}`}
+              value={`https://communify.mrzera.in/${postId}`}
               readOnly
             />
             <div className="button-containerr">
@@ -435,7 +468,6 @@ function SinglePost() {
                           type="text"
                           id="newcomment"
                           style={{ marginLeft: "20px" }}
-                          value={clickEdit.edit}
                         />
                         <button type="submit">save</button>
                       </form>
@@ -471,6 +503,7 @@ function SinglePost() {
                         replyComment(c._id, e);
                       }}
                     >
+
                       <textarea
                         name=""
                         id="replycomment"
