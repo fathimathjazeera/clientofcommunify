@@ -5,7 +5,7 @@ import main from '../../Images/main.png';
 import create from '../../Images/create.png';
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../../Context/MyContext';
-
+import axiosInstance from '../../AxiosInstance/AxiosInstance';
 const Navbar = () => {
   const [community, setCommunity] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
@@ -42,8 +42,8 @@ localStorage.removeItem('adminAuthToken');
   const createCommunity = async () => {
     try {
       const token = localStorage.getItem('authToken');
-      const response = await axios.post(
-        'https://communify-server.mrzera.in/api/users/createcommunity',
+      const response = await axiosInstance.post(
+        '/api/users/createcommunity',
         { community: community },
         {
           headers: {

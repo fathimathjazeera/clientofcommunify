@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../AxiosInstance/AxiosInstance";
 import "./CreatePost.css";
 import Navbar from "../../components/Navbar/Navbar";
 import UploadPosts from "../../Images/UploadPosts";
@@ -31,8 +31,8 @@ function CreatePost() {
       }
   
       const token = localStorage.getItem("authToken");
-      const response = await axios.post(
-        "https://communify-server.mrzera.in/api/users/createpost",
+      const response = await axiosInstance.post(
+        "/api/users/createpost",
         {
           title,
           content,

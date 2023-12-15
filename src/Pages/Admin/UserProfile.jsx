@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import "./UserProfile.css"; // Import your CSS file for styling
 import { useParams } from "react-router-dom";
+import axiosInstance from "../../AxiosInstance/AxiosInstance";
 
 const UserProfileDetails = () => {
   const [singleUser, setSingleUser] = useState();
@@ -10,8 +11,8 @@ const UserProfileDetails = () => {
   const fetchSpecificUser = async () => {
     try {
       const token = localStorage.getItem("adminAuthToken");
-      const response = await axios.get(
-        `https://communify-server.mrzera.in/api/specificuser/${id}`,
+      const response = await axiosInstance.get(
+        `/api/specificuser/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -91,8 +92,8 @@ function UserProfile() {
   const userPosts = async () => {
     try {
       const token = localStorage.getItem("adminAuthToken");
-      const response = await axios.get(
-        `https://communify-server.mrzera.in/api/admin/viewuserpost/${id}`,
+      const response = await axiosInstance.get(
+        `/api/admin/viewuserpost/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -113,7 +114,7 @@ function UserProfile() {
 
   const renderComments = async() => {
     const token=localStorage.getItem('adminAuthToken')
-const response=await axios.get(`https://communify-server.mrzera.in/api/admin/viewusercomment/${id}`,
+const response=await axiosInstance.get(`/api/admin/viewusercomment/${id}`,
 {
     headers:{
         Authorization:`Bearer ${token}`

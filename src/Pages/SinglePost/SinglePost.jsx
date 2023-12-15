@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import "./SinglePost.css";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import { MyContext } from "../../Context/MyContext";
+import axiosInstance from "../../AxiosInstance/AxiosInstance";
+
 
 function SinglePost() {
   const [data, setData] = useState([]);
@@ -18,7 +19,7 @@ function SinglePost() {
   const [replyData, setReplyData] = useState([]);
   const navigation = useNavigate();
 
-console.log(replyData,'hhhh');
+// console.log(replyData,'hhhh');
 
 
   const { id } = useParams();
@@ -26,8 +27,8 @@ console.log(replyData,'hhhh');
 
   const singlePost = async () => {
     try {
-      const response = await axios.get(
-        `https://communify-server.mrzera.in/api/users/singlepost/${id}`
+      const response = await axiosInstance.get(
+        `/api/users/singlepost/${id}`
       );
       const { status, message, data } = response.data;
       if (status === "success") {
@@ -46,7 +47,7 @@ const reportPost=async()=>{
 
   
   const token = localStorage.getItem('authToken')
-  await axios.put(`https://communify-server.mrzera.in/api/users/reportpost/${id}`,{
+  await axiosInstance.put(`/api/users/reportpost/${id}`,{
     
   },{
     headers:{
@@ -73,8 +74,8 @@ const reportPost=async()=>{
       const postData = {
         action: "upvote",
       };
-      await axios.post(
-        `https://communify-server.mrzera.in/api/users/upvote/${id}`,
+      await axiosInstance.post(
+        `/api/users/upvote/${id}`,
         postData,
         {
           headers: {
@@ -95,8 +96,8 @@ const reportPost=async()=>{
       const postData = {
         action: "downvote",
       };
-      await axios.post(
-        `https://communify-server.mrzera.in/api/users/downvote/${id}`,
+      await axiosInstance.post(
+        `/api/users/downvote/${id}`,
         postData,
         {
           headers: {
@@ -115,8 +116,8 @@ const reportPost=async()=>{
     const token = localStorage.getItem("authToken");
     const comment = e.target.newcomment.value;
     try {
-      const response = await axios.put(
-        `https://communify-server.mrzera.in/api/users/editcomment/${id}`,
+      const response = await axiosInstance.put(
+        `/api/users/editcomment/${id}`,
         { text: comment },
         {
           headers: {
@@ -143,8 +144,8 @@ const reportPost=async()=>{
     const token = localStorage.getItem("authToken");
     try {
       const reply = e.target.replycomment.value;
-      const response = await axios.put(
-        `https://communify-server.mrzera.in/api/users/replycomment/${id}`,
+      const response = await axiosInstance.put(
+        `/api/users/replycomment/${id}`,
         { reply: reply },
         {
           headers: {
@@ -164,8 +165,8 @@ const reportPost=async()=>{
 
   const viewCommentReply = async () => {
     try {
-      const response = await axios.get(
-        `https://communify-server.mrzera.in/api/users/viewreply/${id}`
+      const response = await axiosInstance.get(
+        `/api/users/viewreply/${id}`
       );
       const { status, message, data } = response.data;
 
@@ -215,8 +216,8 @@ const reportPost=async()=>{
 
   const viewComment = async () => {
     try {
-      const response = await axios.get(
-        `https://communify-server.mrzera.in/api/users/viewcomment/${id}`
+      const response = await axiosInstance.get(
+        `/api/users/viewcomment/${id}`
       );
       const { status, message, data } = response.data;
 
@@ -241,8 +242,8 @@ const reportPost=async()=>{
       e.preventDefault();
       const token = localStorage.getItem("authToken");
 
-      const response = await axios.post(
-        `https://communify-server.mrzera.in/api/users/postcomment/${id}`,
+      const response = await axiosInstance.post(
+        `/api/users/postcomment/${id}`,
         { text: comment },
         {
           headers: {
@@ -275,8 +276,8 @@ const reportPost=async()=>{
   const deleteComment = async (id) => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.delete(
-        `https://communify-server.mrzera.in/api/users/deletecomment/${id}`,
+      const response = await axiosInstance.delete(
+        `/api/users/deletecomment/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -455,12 +456,12 @@ const reportPost=async()=>{
                 </button>
               </form>
             </div>
+
             <div className="comment-list">
               {commentView.map((c) => (
                 <div className="comment-item" key={c.commentId}>
                   <span className="comment-user">{c.userId?.username}:</span>
                  
-
                   {clickEdit.edit && c._id == clickEdit.id ? (
                     <>
                       <form onSubmit={(e) => editComment(c._id, e)}>
@@ -503,7 +504,6 @@ const reportPost=async()=>{
                         replyComment(c._id, e);
                       }}
                     >
-
                       <textarea
                         name=""
                         id="replycomment"
@@ -524,6 +524,7 @@ const reportPost=async()=>{
                       >
                         reply
                       </button>
+                      <button>upvote</button>
                     </form>
                   ) : (
                     ""

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../AxiosInstance/AxiosInstance'
 
 import './AdminPanel.css';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,9 +10,9 @@ const DashboardTab = () => (
       <h2>Dashboard Content</h2>
       <p>Some dummy data for the Dashboard tab...</p>
     </div>
-  
-  
 );
+
+
 
 const UsersTab = () => {
   const [users, setUsers] = useState([]);
@@ -23,8 +23,8 @@ const navigation = useNavigate()
     const allUsers = async () => {
       try {
         const token = localStorage.getItem("adminAuthToken");
-        const response = await axios.get(
-          "https://communify-server.mrzera.in/api/admin/allusers",
+        const response = await axiosInstance.get(
+          "/api/admin/allusers",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -41,8 +41,8 @@ const navigation = useNavigate()
 
   const blockUser = async (id, isBlocked) => {
     const token = localStorage.getItem('adminAuthToken');
-    const response = await axios.put(
-      `https://communify-server.mrzera.in/api/admin/blockuser/${id}`,
+    const response = await axiosInstance.put(
+      `/api/admin/blockuser/${id}`,
       { isBlocked: !isBlocked }, 
       {
         headers: {
@@ -105,7 +105,7 @@ const CommunitiesTab = () => {
     const viewCommunities = async () => {
       try {
         const token = localStorage.getItem('adminAuthToken');
-        const response = await axios.get('https://communify-server.mrzera.in/api/admin/viewcommunities', {
+        const response = await axiosInstance.get('/api/admin/viewcommunities', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -136,7 +136,7 @@ const ReportedPostsTab = () => {
   useEffect(() => {
     const viewReportedPost = async () => {
       try {
-        const response = await axios.get('https://communify-server.mrzera.in/api/admin/reportedpost');
+        const response = await axiosInstance.get('/api/admin/reportedpost');
         const { status, message, data } = response.data;
 
         if (status === "success") {

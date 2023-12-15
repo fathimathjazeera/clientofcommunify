@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import "./Home.css";
-import axios from "axios";
+import axiosInstance from "../../AxiosInstance/AxiosInstance";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "../../Context/MyContext";
+
+
+
+
 
 function Home() {
   const [filtered, setFiltered] = useState([]);
@@ -15,15 +19,17 @@ function Home() {
   const [userId,setUserId] = useState()
   const { isLoggedIn,setUsername } = useContext(MyContext);
   const navigation = useNavigate();
-  console.log(popularData,"from popular");
+  // console.log(popularData,"from popular");
+
+
 
 
 
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get(
-        "https://communify-server.mrzera.in/api/viewposts"
+      const response = await axiosInstance.get(
+        "/api/viewposts"
       );
       const filteredPost = response.data.data.filter((post) => {
 
@@ -42,8 +48,8 @@ function Home() {
   const viewPopular = async () => {
     const token = localStorage.getItem("authToken");
     try {
-      const response = await axios.get(
-        "https://communify-server.mrzera.in/api/users/viewpopular",
+      const response = await axiosInstance.get(
+        "/api/users/viewpopular",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -109,8 +115,8 @@ function Home() {
       const postData = {
         action: "upvote",
       };
-      await axios.post(
-        `https://communify-server.mrzera.in/api/users/upvote/${id}`,
+      await axiosInstance.post(
+        `/api/users/upvote/${id}`,
         postData,
         {
           headers: {
@@ -131,8 +137,8 @@ function Home() {
       const postData = {
         action: "downvote",
       };
-      await axios.post(
-        `https://communify-server.mrzera.in/api/users/downvote/${id}`,
+      await axiosI.post(
+        `/api/users/downvote/${id}`,
         postData,
         {
           headers: {
@@ -592,7 +598,7 @@ if(activeTab == "popular"){
             <input
               type="text"
               id="postLink"
-              value={`https://communify.mrzera.in/${postId}`}
+              value={`/${postId}`}
               readOnly
             />
             <div className="button-containerr">

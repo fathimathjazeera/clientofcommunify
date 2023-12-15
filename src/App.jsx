@@ -39,6 +39,7 @@ const [adminLogin, setAdminLogin] = useState(false)
   path="/auth"
   element={isLoggedIn ? <Navigate to="/" /> : <Auth />}
 />
+
         <Route path="/" element={<Home/>}></Route>
         <Route path="/:id" element={<SinglePost/>}></Route>
         <Route path="/Create" element={<CreatePost/>}></Route>

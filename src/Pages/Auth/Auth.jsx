@@ -5,7 +5,7 @@ import './Auth.css';
 import { useNavigate } from 'react-router-dom';
 import {Formik,Form,Field} from 'formik'
 import * as Yup from 'yup'; // Import Yup for validation
-
+import axiosInstance from '../../AxiosInstance/AxiosInstance';
 const Auth = () => {
   const navigation = useNavigate()
  
@@ -30,7 +30,7 @@ const validationSchema = Yup.object().shape({
 
   const handleRegistration = async (values, { setSubmitting }) => {
     try {
-      await axios.post('https://communify-server.mrzera.in/api/register', {
+      await axiosInstance.post('/api/register', {
         username: values.username,
         email: values.email,
         password: values.password,
@@ -46,14 +46,15 @@ const validationSchema = Yup.object().shape({
 
   const handleLogin = async (values, { setSubmitting }) => {
     try {
-      const response = await axios.post(
-        'https://communify-server.mrzera.in/api/login',
+      const response = await axiosInstance.post(
+        '/api/login',
         {
           email: values.email,
           password: values.password,
         }
       );
 
+      
       const { adminemail, token } = response.data;
 
       if (adminemail) {

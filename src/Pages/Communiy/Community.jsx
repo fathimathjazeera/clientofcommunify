@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Community.css'; // Import your CSS file for styling
 import Navbar from '../../components/Navbar/Navbar';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../../AxiosInstance/AxiosInstance';
 
 function Community() {
   const { communityname } = useParams();
@@ -15,7 +15,7 @@ function Community() {
 
   const viewSpecificCommunity = async () => {
     try {
-      const response = await axios.get(`https://communify-server.mrzera.in/api/users/singlecommunity/${communityname}`);
+      const response = await axiosInstance.get(`/api/users/singlecommunity/${communityname}`);
       const { status, message, data } = response.data;
 
       if (status === 'success') {
@@ -30,7 +30,7 @@ function Community() {
 
   const viewCommunityPost = async () => {
     try {
-      const response = await axios.get(`https://communify-server.mrzera.in/api/users/communitypost/${communityname}`);
+      const response = await axiosInstance.get(`/api/users/communitypost/${communityname}`);
       const { status, message, data } = response.data;
       if (status === 'success') {
         console.log('successfully fetched communitypost', data);
@@ -46,7 +46,7 @@ function Community() {
   const joinCommunity = async (id) => {
     const token = localStorage.getItem('authToken');
     try {
-      const response = await axios.put(`https://communify-server.mrzera.in/api/users/joincommunity/${id}`, {}, {
+      const response = await axiosInstance.put(`/api/users/joincommunity/${id}`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
