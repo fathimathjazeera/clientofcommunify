@@ -44,8 +44,6 @@ function SinglePost() {
 
 const reportPost=async()=>{
   try{
-
-  
   const token = localStorage.getItem('authToken')
   await axiosInstance.put(`/api/users/reportpost/${id}`,{
     

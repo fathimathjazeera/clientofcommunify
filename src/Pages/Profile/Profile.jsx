@@ -101,6 +101,7 @@ const navigation=useNavigate()
       console.log(err.message);
     }
   };
+  
   const viewUserProfile = async () => {
     const token = localStorage.getItem("authToken");
     const response = await axios.get(
