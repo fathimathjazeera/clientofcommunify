@@ -105,7 +105,7 @@ localStorage.removeItem('adminAuthToken');
       </div>
       </div>
       </div>
-
+//added
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
