@@ -42,15 +42,11 @@ localStorage.removeItem('adminAuthToken');
   const createCommunity = async () => {
     try {
       const token = localStorage.getItem('authToken');
+
       const response = await axiosInstance.post(
         '/api/users/createcommunity',
-        { community: community },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+
+      )
 
       const { status, message } = response.data;
       if (status === 'success') {

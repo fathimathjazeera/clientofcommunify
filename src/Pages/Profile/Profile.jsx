@@ -2,14 +2,8 @@
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import Navbar from "../../components/Navbar/Navbar";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../AxiosInstance/AxiosInstance";
-
-
-
-
-
-
 function Profile() {
   const [activeTab, setActiveTab] = useState("posts");
   const [user, setUser] = useState([]);
@@ -17,15 +11,8 @@ function Profile() {
   const [usersComments, setUsersComments] = useState([]);
   const [userUpvote,setUserUpvote]= useState([])
 const [userDownvote, setUserDownvote] = useState([])
+
 const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
-
-
-
-
-
-
-
 
 
 const [editedProfile, setEditedProfile] = useState({
@@ -33,27 +20,16 @@ const [editedProfile, setEditedProfile] = useState({
   email: user.email,
   // Add other profile fields as needed
 });
-
-
-
-
-
 const openEditModal = () => {
   setIsEditModalOpen(true);
 };
-
-
-
 
 // Function to close the edit profile modal
 const closeEditModal = () => {
   setIsEditModalOpen(false);
 };
 
-
-
-
-// F the edit profile modal
+// Function to handle input changes in the edit profile modal
 const handleEditInputChange = (e) => {
   const { name, value } = e.target;
   setEditedProfile((prevProfile) => ({
@@ -62,12 +38,9 @@ const handleEditInputChange = (e) => {
   }));
 };
 
-
-
-
 const handleProfileEditSubmit = async() => {
-const token= localStorage.getItem('authToken')
-await axiosInstance.put('/api/users/editprofile',{
+  const token= localStorage.getItem('authToken')
+await axios.put('https://communify-server.mrzera.in/api/users/editprofile',{
 user
 },{
 headers:{
@@ -90,7 +63,7 @@ const navigation=useNavigate()
   const deleteProfile=async()=>{
     try{
       const token=localStorage.getItem('authToken')
-   const response=   await axiosInstance.delete('/api/users/deleteprofile',{
+   const response=   await axios.delete('https://communify-server.mrzera.in/api/users/deleteprofile',{
        headers:{
          Authorization:`Bearer ${token}`
        }
@@ -108,8 +81,8 @@ const navigation=useNavigate()
     try {
       const token = localStorage.getItem("authToken");
 
-      const response = await axiosInstance.get(
-        "/api/users/viewuserpost",
+      const response = await axios.get(
+        "https://communify-server.mrzera.in/api/users/viewuserpost",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -130,8 +103,8 @@ const navigation=useNavigate()
   };
   const viewUserProfile = async () => {
     const token = localStorage.getItem("authToken");
-    const response = await axiosInstance.get(
-      "/api/users/userprofile",
+    const response = await axios.get(
+      "https://communify-server.mrzera.in/api/users/userprofile",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -150,8 +123,8 @@ const navigation=useNavigate()
   const userComments = async () => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axiosInstance.get(
-        "/api/users/viewusercomment",
+      const response = await axios.get(
+        "https://communify-server.mrzera.in/api/users/viewusercomment",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -175,7 +148,7 @@ const navigation=useNavigate()
   const userUpvoted = async () => {
     const token = localStorage.getItem('authToken');
     try {
-      const response = await axiosInstance.get('/api/users/userupvote', {
+      const response = await axios.get('https://communify-server.mrzera.in/api/users/userupvote', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -194,7 +167,7 @@ const navigation=useNavigate()
   const userDownvoted = async () => {
     const token = localStorage.getItem('authToken');
     try {
-      const response = await axiosInstance.get('/api/users/userdownvote', {
+      const response = await axios.get('https://communify-server.mrzera.in/api/users/userdownvote', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -215,7 +188,7 @@ const navigation=useNavigate()
     try{
     const token=localStorage.getItem('authToken')
     
-    await axiosInstance.delete(`/api/users/deletepost/${id}`,{
+    await axios.delete(`https://communify-server.mrzera.in/api/users/deletepost/${id}`,{
       headers:{
         Authorization:`Bearer ${token}`
       }

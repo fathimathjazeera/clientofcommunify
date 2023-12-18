@@ -598,7 +598,11 @@ if(activeTab == "popular"){
             <input
               type="text"
               id="postLink"
-              value={`/${postId}`}
+
+              
+
+              value={`https://communify.mrzera.in/${postId}`}
+
               readOnly
             />
             <div className="button-containerr">
