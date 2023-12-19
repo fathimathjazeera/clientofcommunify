@@ -14,18 +14,22 @@ const DashboardTab = () => (
 
 
 
-
-
 const UsersTab = () => {
   const [users, setUsers] = useState([]);
   const [isBlocked, setIsBlocked] = useState(false)
 const navigation = useNavigate()
+
 
     const allUsers = async () => {
       try {
         const token = localStorage.getItem("adminAuthToken");
         const response = await axiosInstance.get(
           "/api/admin/allusers",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const { status, message, data } = response.data;
         setUsers(data);
@@ -35,11 +39,6 @@ const navigation = useNavigate()
     };
 
 
-
-
-
-
-    
   const blockUser = async (id, isBlocked) => {
     const token = localStorage.getItem('adminAuthToken');
     const response = await axiosInstance.put(
@@ -59,14 +58,6 @@ const navigation = useNavigate()
       const state = localStorage.getItem("isBlocked", isBlocked);
     }
   };
-
-
-
-
-
-
-
-
 
 
   useEffect(() => {
