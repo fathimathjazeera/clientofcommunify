@@ -19,7 +19,9 @@ function Home() {
   const [userId,setUserId] = useState()
   const { isLoggedIn,setUsername } = useContext(MyContext);
   const navigation = useNavigate();
-  console.log(popularData,"from popular");
+  // console.log(popularData,"from popular");
+
+
 
 
 
@@ -44,15 +46,23 @@ function Home() {
 
 
   const viewPopular = async () => {
+    const token = localStorage.getItem("authToken");
     try {
       const response = await axiosInstance.get(
-        "/api/users/viewpopular");
+        "/api/users/viewpopular",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const { status, message, data } = response.data;
       if (status === "success") {
 
        const filter= data.filter((post)=>{
           return userId != post.postedBy
         })
+
         setPopularData(filter);
       }
     } catch (err) {
@@ -60,7 +70,7 @@ function Home() {
     }
   };
 
- 
+
   
   const onSelectFilter = async (tabName) => {
     setActiveTab(tabName);
