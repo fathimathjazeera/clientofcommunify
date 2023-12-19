@@ -19,7 +19,7 @@ function Home() {
   const [userId,setUserId] = useState()
   const { isLoggedIn,setUsername } = useContext(MyContext);
   const navigation = useNavigate();
-  // console.log(popularData,"from popular");
+  console.log(popularData,"from popular");
 
 
 
