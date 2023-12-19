@@ -7,6 +7,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use((config) => {
   const jwtToken = localStorage.getItem("authToken");
   const adminAuthToken = localStorage.getItem("adminAuthToken");
+console.log(adminAuthToken,"adminauth");
   if (jwtToken !== "" && jwtToken !== "null") {
     // Additional check for token validity if needed
 
