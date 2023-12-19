@@ -24,8 +24,6 @@ function Home() {
 
 
 
-
-
   const fetchPosts = async () => {
     try {
       const response = await axiosInstance.get(

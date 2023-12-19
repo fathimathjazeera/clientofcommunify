@@ -25,11 +25,6 @@ const navigation = useNavigate()
         const token = localStorage.getItem("adminAuthToken");
         const response = await axiosInstance.get(
           "/api/admin/allusers",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
         );
         const { status, message, data } = response.data;
         setUsers(data);
