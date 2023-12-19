@@ -46,7 +46,6 @@ function Home() {
 
 
   const viewPopular = async () => {
-    const token = localStorage.getItem("authToken");
     try {
       const response = await axiosInstance.get(
         "/api/users/viewpopular");
@@ -56,7 +55,6 @@ function Home() {
        const filter= data.filter((post)=>{
           return userId != post.postedBy
         })
-
         setPopularData(filter);
       }
     } catch (err) {
@@ -64,7 +62,7 @@ function Home() {
     }
   };
 
-
+ 
   
   const onSelectFilter = async (tabName) => {
     setActiveTab(tabName);
