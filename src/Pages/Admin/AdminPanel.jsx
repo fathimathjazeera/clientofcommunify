@@ -19,7 +19,6 @@ const UsersTab = () => {
   const [isBlocked, setIsBlocked] = useState(false)
 const navigation = useNavigate()
 
-
     const allUsers = async () => {
       try {
         const token = localStorage.getItem("adminAuthToken");
