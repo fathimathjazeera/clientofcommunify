@@ -49,13 +49,7 @@ function Home() {
     const token = localStorage.getItem("authToken");
     try {
       const response = await axiosInstance.get(
-        "/api/users/viewpopular",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+        "/api/users/viewpopular");
       const { status, message, data } = response.data;
       if (status === "success") {
 
