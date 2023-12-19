@@ -7,18 +7,20 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use((config) => {
   const jwtToken = localStorage.getItem("authToken");
   const adminAuthToken = localStorage.getItem("adminAuthToken");
+console.log(adminAuthToken,"adminauth");
 
-  if (jwtToken !== "" && jwtToken !== "null") {
+
+
+if (adminAuthToken !== "" && adminAuthToken !== "null") {
+  // Additional check for admin token validity if needed
+  // Set the Authorization header for admin token
+  config.headers.Authorization = `Bearer ${adminAuthToken}`;
+}else if (jwtToken !== "" && jwtToken !== "null") {
     // Additional check for token validity if needed
 
     // Set the Authorization header for user token
     config.headers.Authorization = `Bearer ${jwtToken}`;
-  } else if (adminAuthToken !== "" && adminAuthToken !== "null") {
-    // Additional check for admin token validity if needed
-
-    // Set the Authorization header for admin token
-    config.headers.Authorization = `Bearer ${adminAuthToken}`;
-  }
+  }  
 
   return config;
 });
