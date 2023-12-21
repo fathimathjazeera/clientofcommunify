@@ -1,49 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import axiosInstance from '../../AxiosInstance/AxiosInstance'
-
-import './AdminPanel.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import axiosInstance from "../../AxiosInstance/AxiosInstance";
+import ReactPaginate from 'react-paginate';
+import "./AdminPanel.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 const DashboardTab = () => (
- 
-    <div className="dashboard-box">
-      <h2>Dashboard Content</h2>
-      <p>Some dummy data for the Dashboard tab...</p>
-    </div>
+  <div className="dashboard-box">
+    <h2>Dashboard Content</h2>
+    <p>Some dummy data for the Dashboard tab...</p>
+  </div>
 );
+
 
 
 
 const UsersTab = () => {
   const [users, setUsers] = useState([]);
-  const [isBlocked, setIsBlocked] = useState(false)
-const navigation = useNavigate()
+  const [isBlocked, setIsBlocked] = useState(false);
+  const [limit,setLimit] = useState(5)
+  const [pageCount,setPageCount]=useState(1)
+  const currentPage= useRef(1)
+  const navigation = useNavigate();
 
 
-    const allUsers = async () => {
-      try {
-        const token = localStorage.getItem("adminAuthToken");
-        const response = await axiosInstance.get(
-          "/api/admin/allusers",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const { status, message, data } = response.data;
-        setUsers(data);
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
+
+
+  const allUsers = async () => {
+    try {
+      const token = localStorage.getItem("adminAuthToken");
+      const response = await axiosInstance.get("/api/admin/allusers");
+      const { status, message, data } = response.data;
+      setUsers(data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+
+
+
+  const paginatedUsers=async()=>{
+    try {
+      const token = localStorage.getItem("adminAuthToken");
+      const response = await axiosInstance.get(`/api/admin/allusers?page=${currentPage.current}&limit=${limit}`);
+      const { status, message, data } = response.data;
+      setUsers(data);
+      setPageCount(data.pageCount)
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
+
+
 
 
   const blockUser = async (id, isBlocked) => {
-    const token = localStorage.getItem('adminAuthToken');
+    const token = localStorage.getItem("adminAuthToken");
     const response = await axiosInstance.put(
       `/api/admin/blockuser/${id}`,
-      { isBlocked: !isBlocked }, 
+      { isBlocked: !isBlocked },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -52,7 +68,6 @@ const navigation = useNavigate()
     );
     const { status, message, data } = response.data;
     if (status == "success") {
-     
       setIsBlocked(data.isBlocked);
       localStorage.setItem("isBlocked", isBlocked);
       const state = localStorage.getItem("isBlocked", isBlocked);
@@ -60,14 +75,35 @@ const navigation = useNavigate()
   };
 
 
-  useEffect(() => {
-    allUsers();
-  }, []); // This effect only runs once to fetch all users
+
+
+
 
   useEffect(() => {
-   
-    allUsers();
+    // allUsers();
+    currentPage.current = 1
+    paginatedUsers()
+  }, []); 
+
+
+
+  useEffect(() => {
+    // allUsers();
+    paginatedUsers()
   }, [isBlocked]);
+
+
+
+
+
+const handlePageClick=async(e)=>{
+console.log(e,"hhiii");
+currentPage.current= e.selected+1;
+paginatedUsers()
+}
+
+
+
 
   return (
     <div>
@@ -82,21 +118,48 @@ const navigation = useNavigate()
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td onClick={()=>navigation(`/adminView/${user._id}`)}>{user.username}</td>
+              <td onClick={() => navigation(`/adminView/${user._id}`)}>
+                {user.username}
+              </td>
               <td>{user.email}</td>
               <td>
-                <button className="block-button" onClick={() => {
-                      blockUser(user._id, user.isBlocked);
-                    }}>{user.isBlocked ? "Unblock" : "block"}</button>
-
+                <button
+                  className="block-button"
+                  onClick={() => {
+                    blockUser(user._id, user.isBlocked);
+                  }}
+                >
+                  {user.isBlocked ? "Unblock" : "block"}
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
+        marginPagesDisplayed={2}
+        containerClassName="pagination justify-content-center"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName="page-item"
+        previousLinkClassName="page-link"
+        nextClassName="page-item"
+        nextLinkClassName="page-link"
+        activeClassName="active"
+      />
     </div>
   );
 };
+
+
+
 
 const CommunitiesTab = () => {
   const [communities, setCommunities] = useState([]);
@@ -104,8 +167,8 @@ const CommunitiesTab = () => {
   useEffect(() => {
     const viewCommunities = async () => {
       try {
-        const token = localStorage.getItem('adminAuthToken');
-        const response = await axiosInstance.get('/api/admin/viewcommunities', {
+        const token = localStorage.getItem("adminAuthToken");
+        const response = await axiosInstance.get("/api/admin/viewcommunities", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -136,7 +199,7 @@ const ReportedPostsTab = () => {
   useEffect(() => {
     const viewReportedPost = async () => {
       try {
-        const response = await axiosInstance.get('/api/admin/reportedpost');
+        const response = await axiosInstance.get("/api/admin/reportedpost");
         const { status, message, data } = response.data;
 
         if (status === "success") {
@@ -151,52 +214,42 @@ const ReportedPostsTab = () => {
   }, []);
 
   return (
-
-      <div className="aduser-content">
-        {reportedPost.map((post) => (
-          <div key={post.id} className="reported-post-card">
-            <h1>{post.title}</h1>
-            <img src={post.image} alt="" />
-            <h3>{post?.content}</h3>
-          </div>
-        ))}
-      </div>
- 
+    <div className="aduser-content">
+      {reportedPost.map((post) => (
+        <div key={post.id} className="reported-post-card">
+          <h1>{post.title}</h1>
+          <img src={post.image} alt="" />
+          <h3>{post?.content}</h3>
+        </div>
+      ))}
+    </div>
   );
-  };
-
-
- 
-
-  
-
+};
 
 function AdminPanel() {
-  const [activeTab, setActiveTab] = useState('Dashboard');
-  const navigation = useNavigate()
-
-  
+  const [activeTab, setActiveTab] = useState("Dashboard");
+  const navigation = useNavigate();
 
   const handleTabClick = (tab) => {
-    if (tab === 'Logout') {
+    if (tab === "Logout") {
       // Perform logout logic here (e.g., clearing authentication token)
-      localStorage.removeItem('adminAuthToken');
-      alert('Logout successful');
+      localStorage.removeItem("adminAuthToken");
+      alert("Logout successful");
       // Navigate to the login page, assuming you have a navigation function
-      navigation('/auth');
+      navigation("/auth");
     } else {
       setActiveTab(tab);
     }
   };
   const renderActiveTab = () => {
     switch (activeTab) {
-      case 'Dashboard':
+      case "Dashboard":
         return <DashboardTab />;
-      case 'Users':
+      case "Users":
         return <UsersTab />;
-      case 'Communities':
+      case "Communities":
         return <CommunitiesTab />;
-      case 'ReportedPosts':
+      case "ReportedPosts":
         return <ReportedPostsTab />;
       default:
         return null;
@@ -207,43 +260,47 @@ function AdminPanel() {
     <div className="admin-container">
       <div className="admin-sidebar">
         <div
-          className={`admin-sidebar-item ${activeTab === 'Dashboard' && 'active'}`}
-          onClick={() => handleTabClick('Dashboard')}
+          className={`admin-sidebar-item ${
+            activeTab === "Dashboard" && "active"
+          }`}
+          onClick={() => handleTabClick("Dashboard")}
         >
           Dashboard
         </div>
         <div
-          className={`admin-sidebar-item ${activeTab === 'Users' && 'active'}`}
-          onClick={() => handleTabClick('Users')}
+          className={`admin-sidebar-item ${activeTab === "Users" && "active"}`}
+          onClick={() => handleTabClick("Users")}
         >
           Users
         </div>
         <div
-          className={`admin-sidebar-item ${activeTab === 'Communities' && 'active'}`}
-          onClick={() => handleTabClick('Communities')}
+          className={`admin-sidebar-item ${
+            activeTab === "Communities" && "active"
+          }`}
+          onClick={() => handleTabClick("Communities")}
         >
           Communities
         </div>
         <div
-          className={`admin-sidebar-item ${activeTab === 'ReportedPosts' && 'active'}`}
-          onClick={() => handleTabClick('ReportedPosts')}
+          className={`admin-sidebar-item ${
+            activeTab === "ReportedPosts" && "active"
+          }`}
+          onClick={() => handleTabClick("ReportedPosts")}
         >
           Reported Posts
         </div>
         <div
-          className={`admin-sidebar-item admin-logout ${activeTab === 'Logout' && 'active'}`}
-          onClick={() => handleTabClick('Logout')}
+          className={`admin-sidebar-item admin-logout ${
+            activeTab === "Logout" && "active"
+          }`}
+          onClick={() => handleTabClick("Logout")}
         >
           Logout
         </div>
       </div>
-      <div className="admin-content">
-        {renderActiveTab()}
-      </div>
+      <div className="admin-content">{renderActiveTab()}</div>
     </div>
   );
 }
 
 export default AdminPanel;
-
-

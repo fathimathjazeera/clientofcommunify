@@ -5,10 +5,6 @@ import axiosInstance from "../../AxiosInstance/AxiosInstance";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "../../Context/MyContext";
 
-
-
-
-
 function Home() {
   const [filtered, setFiltered] = useState([]);
   const [activeTab, setActiveTab] = useState("popular");
@@ -16,23 +12,15 @@ function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [postId, setPostId] = useState();
-  const [userId,setUserId] = useState()
-  const { isLoggedIn,setUsername } = useContext(MyContext);
+  const [userId, setUserId] = useState();
+  const { isLoggedIn, setUsername } = useContext(MyContext);
   const navigation = useNavigate();
   // console.log(popularData,"from popular");
 
-
-
-
-
-
   const fetchPosts = async () => {
     try {
-      const response = await axiosInstance.get(
-        "/api/viewposts"
-      );
+      const response = await axiosInstance.get("/api/viewposts");
       const filteredPost = response.data.data.filter((post) => {
-
         return userId != post.postedBy._id;
       });
       setFiltered(filteredPost);
@@ -41,27 +29,15 @@ function Home() {
     }
   };
 
-
-
-
-
   const viewPopular = async () => {
     const token = localStorage.getItem("authToken");
     try {
-      const response = await axiosInstance.get(
-        "/api/users/viewpopular",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axiosInstance.get("/api/users/viewpopular");
       const { status, message, data } = response.data;
       if (status === "success") {
-
-       const filter= data.filter((post)=>{
-          return userId != post.postedBy
-        })
+        const filter = data.filter((post) => {
+          return userId != post.postedBy;
+        });
 
         setPopularData(filter);
       }
@@ -70,8 +46,6 @@ function Home() {
     }
   };
 
-
-  
   const onSelectFilter = async (tabName) => {
     setActiveTab(tabName);
     if (tabName === "popular") {
@@ -80,8 +54,6 @@ function Home() {
       await fetchPosts();
     }
   };
-
-
 
   const openModal = (postId) => {
     setModalOpen(true);
@@ -115,16 +87,12 @@ function Home() {
       const postData = {
         action: "upvote",
       };
-      await axiosInstance.post(
-        `/api/users/upvote/${id}`,
-        postData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      fetchPosts()
+      await axiosInstance.post(`/api/users/upvote/${id}`, postData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      fetchPosts();
     } catch (err) {
       console.log(err.message, "error");
     }
@@ -137,29 +105,17 @@ function Home() {
       const postData = {
         action: "downvote",
       };
-      await axiosI.post(
-        `/api/users/downvote/${id}`,
-        postData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axiosI.post(`/api/users/downvote/${id}`, postData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-fetchPosts()
-
+      fetchPosts();
     } catch (err) {
       console.log(err.message, "error");
     }
   };
-
-
-
-
-
-
-
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -167,26 +123,19 @@ fetchPosts()
       try {
         const decodedToken = JSON.parse(atob(authToken.split(".")[1]));
         const id = decodedToken.id;
-       setUserId(id)
+        setUserId(id);
         setUsername(decodedToken.username);
       } catch (error) {
         console.error("Error decoding token:", error);
       }
     }
-
-
-
   }, []);
 
-useEffect(() => {
-  
-if(activeTab == "popular"){
-  viewPopular()
-}
-
-
-}, [])
-
+  useEffect(() => {
+    if (activeTab == "popular") {
+      viewPopular();
+    }
+  }, []);
 
   return (
     <div>
@@ -308,10 +257,7 @@ if(activeTab == "popular"){
         </>
       )}
 
-
-
-
-{activeTab === "best" && (
+      {activeTab === "best" && (
         <>
           {filtered.map((post) => (
             <div
@@ -400,7 +346,7 @@ if(activeTab == "popular"){
         </>
       )}
 
-{activeTab === "new" && (
+      {activeTab === "new" && (
         <>
           {filtered.map((post) => (
             <div
@@ -489,9 +435,7 @@ if(activeTab == "popular"){
         </>
       )}
 
-
-
-{activeTab === "top" && (
+      {activeTab === "top" && (
         <>
           {filtered.map((post) => (
             <div
@@ -579,17 +523,6 @@ if(activeTab == "popular"){
           ))}
         </>
       )}
-
-
-
-
-
-
-
-
-
-
-
 
       {isModalOpen && (
         <div className="custom-modal-overlay">
@@ -598,11 +531,7 @@ if(activeTab == "popular"){
             <input
               type="text"
               id="postLink"
-
-              
-
               value={`https://communify.mrzera.in/${postId}`}
-
               readOnly
             />
             <div className="button-containerr">
@@ -634,7 +563,9 @@ if(activeTab == "popular"){
         </h5>
         <button
           className="side-box-button create-post"
-          onClick={isLoggedIn ? () => navigation("/Create") : () => navigation("/auth")}
+          onClick={
+            isLoggedIn ? () => navigation("/Create") : () => navigation("/auth")
+          }
         >
           Create Post
         </button>
