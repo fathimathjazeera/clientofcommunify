@@ -5,7 +5,6 @@ import Navbar from "../../components/Navbar/Navbar";
 import { MyContext } from "../../Context/MyContext";
 import axiosInstance from "../../AxiosInstance/AxiosInstance";
 
-
 function SinglePost() {
   const [data, setData] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -19,17 +18,14 @@ function SinglePost() {
   const [replyData, setReplyData] = useState([]);
   const navigation = useNavigate();
 
-// console.log(replyData,'hhhh');
-
+  // console.log(replyData,'hhhh');
 
   const { id } = useParams();
   const { isLoggedIn } = useContext(MyContext);
 
   const singlePost = async () => {
     try {
-      const response = await axiosInstance.get(
-        `/api/users/singlepost/${id}`
-      );
+      const response = await axiosInstance.get(`/api/users/singlepost/${id}`);
       const { status, message, data } = response.data;
       if (status === "success") {
         console.log("Fetched single post:", data);
@@ -42,28 +38,22 @@ function SinglePost() {
     }
   };
 
-const reportPost=async()=>{
-  try{
-  const token = localStorage.getItem('authToken')
-  await axiosInstance.put(`/api/users/reportpost/${id}`,{
-    
-  },{
-    headers:{
-      Authorization:`Bearer ${token}`
+  const reportPost = async () => {
+    try {
+      const token = localStorage.getItem("authToken");
+      await axiosInstance.put(
+        `/api/users/reportpost/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err.message);
     }
-  })
-}catch(err){
-  console.log(err.message);
-}
-}
-
-
-
-
-
-
-
-
+  };
 
   const upvote = async (id) => {
     const token = localStorage.getItem("authToken");
@@ -72,15 +62,11 @@ const reportPost=async()=>{
       const postData = {
         action: "upvote",
       };
-      await axiosInstance.post(
-        `/api/users/upvote/${id}`,
-        postData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axiosInstance.post(`/api/users/upvote/${id}`, postData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       singlePost();
     } catch (err) {
       console.log(err.message, "error");
@@ -94,15 +80,11 @@ const reportPost=async()=>{
       const postData = {
         action: "downvote",
       };
-      await axiosInstance.post(
-        `/api/users/downvote/${id}`,
-        postData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axiosInstance.post(`/api/users/downvote/${id}`, postData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       singlePost();
     } catch (err) {
       console.log(err.message, "error");
@@ -129,7 +111,6 @@ const reportPost=async()=>{
         setClickEdit(false);
         console.log("edited comment");
         viewComment();
-        
       } else {
         console.log("edit failed");
       }
@@ -163,9 +144,7 @@ const reportPost=async()=>{
 
   const viewCommentReply = async () => {
     try {
-      const response = await axiosInstance.get(
-        `/api/users/viewreply/${id}`
-      );
+      const response = await axiosInstance.get(`/api/users/viewreply/${id}`);
       const { status, message, data } = response.data;
 
       if (status == "success") {
@@ -214,9 +193,7 @@ const reportPost=async()=>{
 
   const viewComment = async () => {
     try {
-      const response = await axiosInstance.get(
-        `/api/users/viewcomment/${id}`
-      );
+      const response = await axiosInstance.get(`/api/users/viewcomment/${id}`);
       const { status, message, data } = response.data;
 
       if (status === "success") {
@@ -264,13 +241,6 @@ const reportPost=async()=>{
     }
   };
 
-
-
-
-
-
-
-
   const deleteComment = async (id) => {
     try {
       const token = localStorage.getItem("authToken");
@@ -314,21 +284,15 @@ const reportPost=async()=>{
     viewCommentReply();
   }, []);
 
+  const voteComment = async (commentId, action) => {
+    try {
+      const vote = { action };
+      await axiosInstance.put(`/api/users/votecomment/${commentId}`, vote);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
-
-
-const voteComment = async(commentId, action)=>{
-  try {
-    const vote={action}
-    await axiosInstance.post(`/api/users/votecomment/${commentId}`,
-    vote)
-  }catch(err){
-    console.log(err.message);
-  }
-
-
-
-}
 
 
 
@@ -403,7 +367,9 @@ const voteComment = async(commentId, action)=>{
             >
               Share
             </button>
-            <button className="button report" onClick={reportPost}>Report</button>
+            <button className="button report" onClick={reportPost}>
+              Report
+            </button>
           </div>
         </div>
       )}
@@ -438,14 +404,29 @@ const voteComment = async(commentId, action)=>{
           </div>
           <div className="favorite-communities">Favorite Communities:</div>
           <ul className="community-list">
-  {data?.postedBy?.joined_communities.slice(0, 2).map((community, index) => (
-    <li key={index} className="community-list-item">
-      {community.name}
-    </li>
-  ))}
-</ul>
+            {data?.postedBy?.joined_communities
+              .slice(0, 2)
+              .map((community, index) => (
+                <li key={index} className="community-list-item">
+                  {community.name}
+                </li>
+              ))}
+          </ul>
 
-          <button className="create-post-button" onClick={isLoggedIn? ()=>{navigation('/Create')} : ()=>{navigation('/auth')}}>Create Post</button>
+          <button
+            className="create-post-button"
+            onClick={
+              isLoggedIn
+                ? () => {
+                    navigation("/Create");
+                  }
+                : () => {
+                    navigation("/auth");
+                  }
+            }
+          >
+            Create Post
+          </button>
         </div>
       )}
 
@@ -473,7 +454,6 @@ const voteComment = async(commentId, action)=>{
               {commentView.map((c) => (
                 <div className="comment-item" key={c.commentId}>
                   <span className="comment-user">{c.userId?.username}:</span>
-                 
                   {clickEdit.edit && c._id == clickEdit.id ? (
                     <>
                       <form onSubmit={(e) => editComment(c._id, e)}>
@@ -493,17 +473,22 @@ const voteComment = async(commentId, action)=>{
                       </p>
                       {isLoggedIn && userId !== c.userId?._id && (
                         <>
-                        <p
-                          style={{ marginLeft: "430px", marginTop: "-20px" }}
-                          onClick={() => setReply({ reply: true, id: c._id })}
-                        >
-                          Reply
-                        </p>
-                      
-          <button onClick={() => voteComment(c._id, 'upvote')}>Upvote</button>
-          <button onClick={() => voteComment(c._id, 'downvote')}>Downvote</button>
- </>
+                          <p
+                            style={{ marginLeft: "430px", marginTop: "-20px" }}
+                            onClick={() => setReply({ reply: true, id: c._id })}
+                          >
+                            Reply
+                          </p>
 
+                          <button onClick={() => voteComment(c._id, "upvote")}>
+                            Upvote
+                          </button>
+                          <button
+                            onClick={() => voteComment(c._id, "downvote")}
+                          >
+                            Downvote
+                          </button>
+                        </>
                       )}
                     </>
                   )}
@@ -542,7 +527,6 @@ const voteComment = async(commentId, action)=>{
                       >
                         reply
                       </button>
-                     
                     </form>
                   ) : (
                     ""
@@ -574,7 +558,13 @@ const voteComment = async(commentId, action)=>{
             </div>
           </>
         ) : (
-     <button onClick={()=>{alert('please login')}}>Add Comment</button>
+          <button
+            onClick={() => {
+              alert("please login");
+            }}
+          >
+            Add Comment
+          </button>
         )}
       </div>
       {/* // end comment section */}
@@ -583,7 +573,3 @@ const voteComment = async(commentId, action)=>{
 }
 
 export default SinglePost;
-
-
-
-
