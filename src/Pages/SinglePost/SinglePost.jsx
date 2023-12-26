@@ -286,7 +286,9 @@ function SinglePost() {
 
   const voteComment = async (commentId, action) => {
     try {
+      console.log(action,"action");
       const vote = { action };
+      console.log(vote,'vote');
       await axiosInstance.put(`/api/users/votecomment/${commentId}`, vote);
     } catch (err) {
       console.log(err.message);
@@ -492,7 +494,6 @@ function SinglePost() {
                       )}
                     </>
                   )}
-
                   {replyData
                     ?.filter((dat) => {
                       return dat._id == c._id;
