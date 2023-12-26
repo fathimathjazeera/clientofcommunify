@@ -18,7 +18,7 @@ const UsersTab = () => {
   const [users, setUsers] = useState([]);
   const [isBlocked, setIsBlocked] = useState(false);
   const [limit,setLimit] = useState(5)
-  const [pageCount,setPageCount]=useState(1)
+  const [pageCount,setPageCount]=useState(5)
   const currentPage= useRef(1)
   const navigation = useNavigate();
 
@@ -99,7 +99,7 @@ const UsersTab = () => {
 const handlePageClick=async(e)=>{
 console.log(e,"hhiii");
 currentPage.current= e.selected+1;
-paginatedUsers()
+await paginatedUsers()
 }
 
 

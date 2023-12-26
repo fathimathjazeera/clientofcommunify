@@ -29,7 +29,6 @@ if(user){
 }else if(admin)
 localStorage.removeItem('adminAuthToken');
   }
-
   
   const clickCommunity = () => {
     setModalOpen(true);
@@ -108,7 +107,7 @@ localStorage.removeItem('adminAuthToken');
       </div>
       </div>
       </div>
-//added
+
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">

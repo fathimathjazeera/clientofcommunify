@@ -317,6 +317,19 @@ const reportPost=async()=>{
 
 
 
+const voteComment = async(commentId, action)=>{
+  try {
+    const vote={action}
+    await axiosInstance.post(`/api/users/votecomment/${commentId}`,
+    vote)
+  }catch(err){
+    console.log(err.message);
+  }
+
+
+
+}
+
 
 
   return (
@@ -469,6 +482,7 @@ const reportPost=async()=>{
                           id="newcomment"
                           style={{ marginLeft: "20px" }}
                         />
+
                         <button type="submit">save</button>
                       </form>
                     </>
@@ -477,14 +491,19 @@ const reportPost=async()=>{
                       <p marginTop={2} marginLeft={7}>
                         {c.text}
                       </p>
-
                       {isLoggedIn && userId !== c.userId?._id && (
+                        <>
                         <p
                           style={{ marginLeft: "430px", marginTop: "-20px" }}
                           onClick={() => setReply({ reply: true, id: c._id })}
                         >
                           Reply
                         </p>
+                      
+          <button onClick={() => voteComment(c._id, 'upvote')}>Upvote</button>
+          <button onClick={() => voteComment(c._id, 'downvote')}>Downvote</button>
+ </>
+
                       )}
                     </>
                   )}
@@ -523,7 +542,7 @@ const reportPost=async()=>{
                       >
                         reply
                       </button>
-                      <button>upvote</button>
+                     
                     </form>
                   ) : (
                     ""
@@ -564,3 +583,7 @@ const reportPost=async()=>{
 }
 
 export default SinglePost;
+
+
+
+

@@ -54,8 +54,10 @@ const validationSchema = Yup.object().shape({
         }
       );
 
-      const { adminemail, token } = response.data;
 
+
+
+      const { adminemail, token } = response.data;
       if (adminemail) {
         localStorage.setItem('adminAuthToken', token);
         navigation('/Admin');
@@ -73,13 +75,14 @@ const validationSchema = Yup.object().shape({
   };
 
 
-
   const resetForm = () => {
     setData(initialValues);
     setConfirmPass(true);
   };
 
   return (
+
+
     <div className="Auth">
       <div className="a-left">
         <img src={main} alt="" />
@@ -89,8 +92,10 @@ const validationSchema = Yup.object().shape({
         </div>
       </div>
 
-      <div className="a-right">
 
+
+
+      <div className="a-right">
       <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
