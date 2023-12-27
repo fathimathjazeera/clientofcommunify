@@ -13,6 +13,7 @@ function Community() {
     return storedJoined ? JSON.parse(storedJoined) : null;
   });
 
+
   const viewSpecificCommunity = async () => {
     try {
       const response = await axiosInstance.get(`/api/users/singlecommunity/${communityname}`);
