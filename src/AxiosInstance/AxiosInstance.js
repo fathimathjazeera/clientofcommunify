@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://communify-server.mrzera.in",
+  baseURL: "https://communifyserver.mrzera.in",
 });
 
 axiosInstance.interceptors.request.use((config) => {
