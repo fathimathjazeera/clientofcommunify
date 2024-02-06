@@ -30,7 +30,7 @@ const validationSchema = Yup.object().shape({
 
   const handleRegistration = async (values, { setSubmitting }) => {
     try {
-      await axios.post('https://communify-server.mrzera.in/api/register', {
+      await axios.post('https://communifyserver.mrzera.in/api/register', {
         username: values.username,
         email: values.email,
         password: values.password,
